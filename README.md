@@ -1,1 +1,1 @@
-Hait-Tracker
+Habit-Tracker
