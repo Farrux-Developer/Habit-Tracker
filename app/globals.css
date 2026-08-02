@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design Tokens
+   ============================================================ */
+:root {
+  --background: #f8fafb;
+  --foreground: #0f172a;
+  --surface: rgba(255,255,255,0.85);
+  --surface-secondary: #f1f5f9;
+  --surface-tertiary: #e2e8f0;
+  --border: rgba(15,23,42,0.06);
+  --border-strong: rgba(15,23,42,0.12);
+  --accent: #059669;
+  --accent-soft: rgba(5,150,105,0.08);
+  --accent-glow: rgba(5,150,105,0.2);
+  --accent-secondary: #d97706;
+  --accent-secondary-soft: rgba(217,119,6,0.08);
+  --muted: #64748b;
+  --muted-strong: #475569;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 24px rgba(0,0,0,0.04);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.06);
+  --streak-warm: #fdba74;
+  --streak-fire: #f97316;
+  --streak-blaze: #dc2626;
+  --streak-legend: #a855f7;
+  --cell-empty: #e5e7eb;
+}
+
+.dark {
+  --background: #030508;
+  --foreground: #e2e8f0;
+  --surface: rgba(15,18,25,0.85);
+  --surface-secondary: #0f141d;
+  --surface-tertiary: #1a1f2e;
+  --border: rgba(255,255,255,0.05);
+  --border-strong: rgba(255,255,255,0.1);
+  --accent: #10b981;
+  --accent-soft: rgba(16,185,129,0.08);
+  --accent-glow: rgba(16,185,129,0.14);
+  --accent-secondary: #f59e0b;
+  --accent-secondary-soft: rgba(245,158,11,0.08);
+  --muted: #475569;
+  --muted-strong: #64748b;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --streak-warm: #f59e0b;
+  --streak-fire: #f97316;
+  --streak-blaze: #ef4444;
+  --streak-legend: #c084fc;
+  --cell-empty: #1e293b;
+}
+
+/* ============================================================
+   Base + Noise texture
+   ============================================================ */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-feature-settings: "cv02","cv03","cv04","cv11","ss01";
+  letter-spacing: -0.011em;
+  transition: background-color 0.6s ease, color 0.6s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ambient highlight — subtle top accent, not a glow */
+body::after {
+  content: ""; position: fixed; top: 0; left: 0; right: 0; height: 1px;
+  z-index: -1; pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+  opacity: 0.06;
+}
+
+/* ============================================================
+   Glass surface
+   ============================================================ */
+.glass {
+  background: var(--surface);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border);
+}
+
+/* ============================================================
+   Animations
+   ============================================================ */
+@keyframes fade-in-up {
+  from { opacity:0; transform:translateY(12px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.animate-fade-in { animation: fade-in-up 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+
+@keyframes shimmer {
+  0% { background-position:-200% 0; } 100% { background-position:200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg,var(--surface-secondary) 25%,var(--surface-tertiary) 50%,var(--surface-secondary) 75%);
+  background-size:200% 100%; animation:shimmer 1.5s ease-in-out infinite; border-radius:10px;
+}
+
+@keyframes check-pop {
+  0% { transform:scale(1); } 40% { transform:scale(0.8); } 70% { transform:scale(1.15); } 100% { transform:scale(1); }
+}
+@keyframes scaleIn {
+  from { opacity:0; transform:scale(0); } to { opacity:1; transform:scale(1); }
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); }
+}
+@keyframes legendPulse {
+  0%,100% { opacity:0.3; } 50% { opacity:0.6; }
+}
+@keyframes ripple {
+  from { opacity:0.6; transform:scale(0.6); } to { opacity:0; transform:scale(1.8); }
+}
+@keyframes cellFadeIn {
+  from { opacity:0; transform:translateX(-2px) scale(0.9); } to { opacity:1; transform:translateX(0) scale(1); }
+}
+
+/* ============================================================
+   Magnetic hover — scale + lift
+   ============================================================ */
+.magnetic {
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
+.magnetic:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  border-color: var(--accent);
+}
+
+/* ============================================================
+   Premium Checkbox
+   ============================================================ */
+.checkbox-premium {
+  appearance: none; -webkit-appearance: none;
+  width: 20px; height: 20px; border: 2px solid var(--border-strong);
+  border-radius: 6px; background: var(--surface); cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1); position: relative;
+  flex-shrink: 0; box-shadow: var(--shadow-sm);
+}
+.checkbox-premium:hover { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.checkbox-premium:checked {
+  animation: check-pop 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  background: var(--accent); border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-glow);
+}
+.checkbox-premium:checked::after {
+  content:""; position:absolute; left:5px; top:2px; width:6px; height:10px;
+  border:solid #fff; border-width:0 1.5px 1.5px 0; transform:rotate(45deg);
+  opacity:0; animation: check-mark-in 0.2s 0.1s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes check-mark-in { to { opacity:1; } }
+.checkbox-premium:disabled { opacity:0.35; cursor:not-allowed; box-shadow:none; }
+.checkbox-premium:disabled:hover { border-color:var(--border-strong); box-shadow:none; }
+
+/* ============================================================
+   Scrollbar
+   ============================================================ */
+::-webkit-scrollbar { width:4px; height:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--muted); border-radius:2px; }
+::-webkit-scrollbar-thumb:hover { background:var(--muted-strong); }
+
+/* Focus ring */
+*:focus-visible { outline:2px solid var(--accent); outline-offset:2px; border-radius:4px; }

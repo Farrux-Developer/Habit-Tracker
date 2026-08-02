@@ -1,0 +1,35 @@
+{
+  "name": "task",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbo",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "clean": "node -e \"try{require('fs').rmSync('.next',{recursive:true,force:true});console.log('.next cleaned')}catch(e){console.log('No .next to clean')}\"",
+    "clean:all": "node -e \"['.next','node_modules/.cache'].forEach(d=>{try{require('fs').rmSync(d,{recursive:true,force:true})}catch(e){}});console.log('Cache cleaned')\""
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.111.0",
+    "canvas-confetti": "^1.9.3",
+    "framer-motion": "^12.0.0",
+    "lucide-react": "^0.500.0",
+    "next": "16.2.12",
+    "next-themes": "^0.4.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.12",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
