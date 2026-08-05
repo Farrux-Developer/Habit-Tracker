@@ -43,6 +43,9 @@ const translations: Record<Lang, Record<string, string>> = {
     delete: "Delete",
     confirmDelete: "Confirm delete",
     installApp: "Install App",
+    installManualTitle: "Install App",
+    installManualDesc: "To install the app, tap the Share icon in your browser menu and select 'Add to Home Screen'.",
+    installManualClose: "Got it",
   },
   ru: {
     appTitle: "Life is a Game",
@@ -82,6 +85,9 @@ const translations: Record<Lang, Record<string, string>> = {
     delete: "Удалить",
     confirmDelete: "Подтвердить",
     installApp: "Установить",
+    installManualTitle: "Установка приложения",
+    installManualDesc: "Чтобы установить приложение, нажмите кнопку «Поделиться» в меню браузера и выберите «На экран \"Домой\"».",
+    installManualClose: "Понятно",
   },
 };
 
