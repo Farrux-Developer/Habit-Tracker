@@ -146,3 +146,9 @@ export const Trash = ({ size = 24, className, style }: IconProps) => (
     <line x1="14" y1="11" x2="14" y2="17" />
   </svg>
 );
+
+export const Download = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+  </svg>
+);

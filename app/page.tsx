@@ -11,6 +11,7 @@ import Heatmap from "@/components/Heatmap";
 import TaskCard from "@/components/TaskCard";
 import YearPicker from "@/components/YearPicker";
 import ThemeToggle from "@/components/ThemeToggle";
+import InstallPWAButton from "@/components/InstallPWAButton";
 import { Plus, Sparkles, Archive, Lock, Zap, Flame, Trophy, TrendingUp } from "@/components/icons";
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -254,6 +255,7 @@ export default function HomePage() {
               {t("allDone")}
             </span>
           )}
+          <InstallPWAButton />
           <LangSwitcher />
           <YearPicker />
           <ThemeToggle />

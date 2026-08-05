@@ -42,6 +42,7 @@ const translations: Record<Lang, Record<string, string>> = {
     pullups: "10 pull-ups",
     delete: "Delete",
     confirmDelete: "Confirm delete",
+    installApp: "Install App",
   },
   ru: {
     appTitle: "Life is a Game",
@@ -80,6 +81,7 @@ const translations: Record<Lang, Record<string, string>> = {
     pullups: "10 подтягиваний",
     delete: "Удалить",
     confirmDelete: "Подтвердить",
+    installApp: "Установить",
   },
 };
 
