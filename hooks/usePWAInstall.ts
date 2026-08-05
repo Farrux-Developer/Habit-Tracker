@@ -15,8 +15,14 @@ interface BeforeInstallPromptEvent extends Event {
 export function usePWAInstall() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isInstallable, setIsInstallable] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
+    // Check if the app is already running as a PWA
+    const isPWA = window.matchMedia('(display-mode: standalone)').matches ||
+                  (window.navigator as any).standalone === true;
+    setIsStandalone(isPWA);
+
     const handleBeforeInstallPrompt = (e: Event) => {
       // Prevent the mini-infobar from appearing on mobile
       e.preventDefault();
@@ -32,6 +38,7 @@ export function usePWAInstall() {
     const handleAppInstalled = () => {
       setIsInstallable(false);
       setDeferredPrompt(null);
+      setIsStandalone(true);
       console.log("PWA was installed");
     };
 
@@ -45,7 +52,7 @@ export function usePWAInstall() {
 
   const promptInstall = useCallback(async () => {
     if (!deferredPrompt) {
-      return;
+      return false; // Indicate that prompt is not available
     }
     // Show the install prompt
     await deferredPrompt.prompt();
@@ -56,7 +63,8 @@ export function usePWAInstall() {
     // We've used the prompt, and can't use it again, discard it
     setDeferredPrompt(null);
     setIsInstallable(false);
+    return true; // Indicate that prompt was used
   }, [deferredPrompt]);
 
-  return { isInstallable, promptInstall };
+  return { isInstallable, isStandalone, promptInstall };
 }
