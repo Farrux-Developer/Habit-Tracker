@@ -16,8 +16,14 @@ export function usePWAInstall() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isInstallable, setIsInstallable] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
+    // Check if device is iOS (which doesn't support beforeinstallprompt)
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const isIOSDevice = /iphone|ipad|ipod/.test(userAgent);
+    setIsIOS(isIOSDevice);
+
     // Check if the app is already running as a PWA
     const isPWA = window.matchMedia('(display-mode: standalone)').matches ||
                   (window.navigator as any).standalone === true;
@@ -51,6 +57,11 @@ export function usePWAInstall() {
   }, []);
 
   const promptInstall = useCallback(async () => {
+    if (isIOS) {
+        // Return false/special code to indicate iOS modal needs to be shown
+        return "ios";
+    }
+
     if (!deferredPrompt) {
       return false; // Indicate that prompt is not available
     }
@@ -64,7 +75,7 @@ export function usePWAInstall() {
     setDeferredPrompt(null);
     setIsInstallable(false);
     return true; // Indicate that prompt was used
-  }, [deferredPrompt]);
+  }, [deferredPrompt, isIOS]);
 
-  return { isInstallable, isStandalone, promptInstall };
+  return { isInstallable, isStandalone, isIOS, promptInstall };
 }

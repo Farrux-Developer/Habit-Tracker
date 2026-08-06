@@ -4,10 +4,10 @@ import Navigation from "@/components/Navigation";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Life is a Game — Habit Tracker",
+  title: "Habit-Tracker",
   description: "Геймифицированный трекер привычек с тепловой картой и статистикой",
   manifest: "/manifest.json",
-  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Life is a Game" },
+  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Habit-Tracker" },
 };
 
 export const viewport: Viewport = {
