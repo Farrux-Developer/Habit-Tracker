@@ -1,7 +1,7 @@
 {
-  "name": "Life is a Game — Habit Tracker",
-  "short_name": "Life is a Game",
-  "description": "Геймифицированный трекер привычек с тепловой картой",
+  "name": "Habit-Tracker",
+  "short_name": "Habit-Tracker",
+  "description": "Геймифицированный трекер привычек",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#060608",

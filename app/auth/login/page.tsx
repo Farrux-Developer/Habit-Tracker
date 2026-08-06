@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/lib/auth";
 import { Lock, Zap } from "@/components/icons";
+import { InstallPWAButton } from "@/components/InstallPWAButton";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -27,9 +28,13 @@ export default function LoginPage() {
             <Zap size={22} className="text-white" />
           </div>
           <h1 className="text-xl font-extrabold tracking-tight text-[var(--foreground)]">
-            Life is a Game
+            Habit-Tracker
           </h1>
           <p className="text-[11px] text-[var(--muted)]">Sign in to continue</p>
+        </div>
+
+        <div className="mb-4 flex justify-center">
+            <InstallPWAButton />
         </div>
 
         {/* Form */}
