@@ -6,80 +6,134 @@ export type Lang = "en" | "ru";
 
 const translations: Record<Lang, Record<string, string>> = {
   en: {
-    appTitle: "Life is a Game",
+    appTitle: "Habit Tracker",
     appSub: "Dashboard",
     habitTracker: "Habit Tracker",
     activity: "Activity",
     days: "days",
     today: "Today",
-    tasks: "Tasks",
+    tasks: "Habits",
     stats: "Statistics",
     settings: "Settings",
     home: "Home",
-    addHabit: "Add habit",
-    newHabit: "New habit...",
+    addHabit: "Add Habit",
+    newHabit: "New habit title...",
     cancel: "Cancel",
-    add: "Add",
+    add: "Create Habit",
     daily: "Daily",
     once: "Once",
     less: "Less",
     more: "More",
     done: "Done",
+    skipped: "Skipped",
+    notDone: "Remaining",
     total: "Total",
     streak: "day streak",
     record: "record",
-    noTasks: "No tasks. Go to Tasks tab to create.",
-    allDone: "ALL DONE",
+    noTasks: "No habits added yet.",
+    addFirstHabit: "Add First Habit",
+    allDone: "ALL DONE TODAY",
     day: "days",
     archive: "Archive",
-    readOnly: "read-only",
-    manageTasks: "Manage your habits & one-time tasks",
-    areYouAdmin: "Are you admin?",
-    monthly: "Monthly",
-    weekly: "Weekly",
-    pushups: "10 push-ups",
-    crunches: "10 crunches",
-    pullups: "10 pull-ups",
+    readOnly: "view-only",
+    manageTasks: "Manage your daily habits & targets",
+    topHabits: "Top Habits Ranking",
+    completionOverview: "Completion Overview",
+    monthView: "Month",
+    weekView: "Current Week",
+    week: "Week",
+    pastLockedNotice: "Past days are view-only. Click today's cells to toggle status.",
+    trend: "Completion Trend",
+    statusCycleHint: "Click today's cell to toggle: Done → Skipped → Empty",
     delete: "Delete",
-    confirmDelete: "Confirm delete",
+    confirmDelete: "Confirm Delete",
+    areYouAdmin: "Are you admin?",
+    installApp: "Install App",
+    adminModalTitle: "Admin Authorization",
+    username: "Username",
+    password: "Password",
+    login: "Sign In",
+    invalidAdmin: "Invalid admin credentials",
+    tooManyAttempts: "Too many failed attempts. Please wait 1 minute.",
+    tasksTab: "Task Planner",
+    habitsTab: "Habits",
+    budgetTab: "Yearly Budget",
+    aiSummaryTitle: "AI Monthly Insights",
+    getAiSummary: "Generate AI Summary",
+    downloadApp: "Download App",
+    priorityLow: "Low",
+    priorityMed: "Medium",
+    priorityHigh: "High",
+    income: "Income",
+    expenses: "Expenses",
+    remaining: "Net Remaining",
+    budgetVsActual: "Budget vs. Actual",
+    subscriptions: "Subscriptions & Recurring",
   },
   ru: {
-    appTitle: "Life is a Game",
+    appTitle: "Трекер привычек",
     appSub: "Дашборд",
     habitTracker: "Трекер привычек",
     activity: "Активность",
     days: "дней",
     today: "Сегодня",
-    tasks: "Задачи",
+    tasks: "Привычки",
     stats: "Статистика",
     settings: "Настройки",
     home: "Главная",
-    addHabit: "Добавить",
-    newHabit: "Новая привычка...",
+    addHabit: "Добавить привычку",
+    newHabit: "Название привычки...",
     cancel: "Отмена",
-    add: "Добавить",
+    add: "Создать привычку",
     daily: "Ежедневно",
     once: "Разово",
     less: "Меньше",
     more: "Больше",
     done: "Сделано",
+    skipped: "Пропущено",
+    notDone: "Осталось",
     total: "Всего",
     streak: "дней подряд",
     record: "рекорд",
-    noTasks: "Нет задач. Добавь во вкладке Задачи.",
-    allDone: "ВСЁ ГОТОВО",
+    noTasks: "У вас пока нет привычек.",
+    addFirstHabit: "Добавить первую привычку",
+    allDone: "ВСЁ СДЕЛАНО СЕГОДНЯ",
     day: "дней",
     archive: "Архив",
-    readOnly: "только чтение",
-    manageTasks: "Управление привычками и задачами",
-    areYouAdmin: "Вы админ?",
-    monthly: "За месяц",
-    weekly: "За неделю",
-    pushups: "10 отжиманий",
-    crunches: "10 пресс",
-    pullups: "10 подтягиваний",
+    readOnly: "только просмотр",
+    manageTasks: "Управление привычками и целями",
+    topHabits: "Рейтинг привычек",
+    completionOverview: "Анализ выполнения",
+    monthView: "Месяц",
+    weekView: "Текущая неделя",
+    week: "Неделя",
+    pastLockedNotice: "Прошлые дни доступно только просмотр. Кликайте по ячейкам за 'Сегодня'.",
+    trend: "Динамика выполнения",
+    statusCycleHint: "Клик по сегодня: Сделано → Пропущено → Не отмечено",
     delete: "Удалить",
     confirmDelete: "Подтвердить",
+    areYouAdmin: "Вы админ?",
+    installApp: "Установить приложение",
+    adminModalTitle: "Авторизация Администратора",
+    username: "Имя пользователя",
+    password: "Пароль",
+    login: "Войти",
+    invalidAdmin: "Неверное имя пользователя или пароль",
+    tooManyAttempts: "Слишком много неудачных попыток. Подождите 1 минуту.",
+    tasksTab: "Планер задач",
+    habitsTab: "Привычки",
+    budgetTab: "Годовой бюджет",
+    aiSummaryTitle: "AI-Сводка месяца",
+    getAiSummary: "Сформировать AI-анализ",
+    downloadApp: "Скачать приложение",
+    priorityLow: "Низкий",
+    priorityMed: "Средний",
+    priorityHigh: "Высокий",
+    income: "Доходы",
+    expenses: "Расходы",
+    remaining: "Остаток",
+    budgetVsActual: "Бюджет vs План",
+    subscriptions: "Подписки и платежи",
   },
 };
 
@@ -90,15 +144,15 @@ interface LangCtx {
 }
 
 const LangContext = createContext<LangCtx>({
-  lang: "ru", setLang: () => {}, t: (k) => k,
+  lang: "en", setLang: () => {}, t: (k) => k,
 });
 
 const STORAGE_KEY = "life-is-a-game-lang";
 
 export function LangProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>(() => {
-    if (typeof window === "undefined") return "ru";
-    return (localStorage.getItem(STORAGE_KEY) as Lang) ?? "ru";
+    if (typeof window === "undefined") return "en";
+    return (localStorage.getItem(STORAGE_KEY) as Lang) ?? "en";
   });
 
   const setLang = useCallback((l: Lang) => {
@@ -122,17 +176,31 @@ export function useLang() {
   return useContext(LangContext);
 }
 
-// Quick switcher component
+// Clear Segmented EN | RU Switcher
 export function LangSwitcher() {
   const { lang, setLang } = useLang();
   return (
-    <button
-      onClick={() => setLang(lang === "ru" ? "en" : "ru")}
-      className="rounded-full border border-[var(--border)] bg-[var(--surface-secondary)]
-                 px-2.5 py-1 text-[10px] font-bold tracking-wide
-                 text-[var(--foreground)] transition-all hover:border-[var(--accent)]"
-    >
-      {lang === "ru" ? "EN" : "RU"}
-    </button>
+    <div className="flex overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)] p-0.5 text-[10px] font-bold">
+      <button
+        onClick={() => setLang("en")}
+        className={`rounded-lg px-2 py-0.5 transition-all ${
+          lang === "en"
+            ? "bg-[var(--accent)] text-white shadow-sm"
+            : "text-[var(--muted)] hover:text-[var(--foreground)]"
+        }`}
+      >
+        EN
+      </button>
+      <button
+        onClick={() => setLang("ru")}
+        className={`rounded-lg px-2 py-0.5 transition-all ${
+          lang === "ru"
+            ? "bg-[var(--accent)] text-white shadow-sm"
+            : "text-[var(--muted)] hover:text-[var(--foreground)]"
+        }`}
+      >
+        RU
+      </button>
+    </div>
   );
 }

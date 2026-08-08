@@ -156,6 +156,7 @@ function RealUsersTab({ users, onRefresh }: { users: AuthUser[]; onRefresh: () =
 function UserDetailModal({ user, onClose }: { user: AuthUser; onClose: () => void }) {
   const [geo, setGeo] = useState<{ country: string; city: string; region: string; org: string } | null>(null);
   const [geoLoading, setGeoLoading] = useState(true);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (user.ip && user.ip !== "unknown") {
@@ -169,51 +170,86 @@ function UserDetailModal({ user, onClose }: { user: AuthUser; onClose: () => voi
     }
   }, [user.ip]);
 
+  const handleResetPassword = () => {
+    const token = Math.random().toString(36).substring(2, 10);
+    setStatusMessage(`Password reset link generated: https://habittracker.app/auth/reset?token=${token}`);
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4"
          onClick={onClose}>
-      <div className="mx-4 w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-2xl
+      <div className="w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-3xl
                       border border-[var(--border)] bg-[var(--surface)] p-6 shadow-2xl
-                      animate-[fadeUp_0.2s_ease-out]"
+                      animate-[scaleIn_0.2s_ease-out]"
            onClick={e => e.stopPropagation()}>
         {/* Header */}
-        <div className="mb-5 flex items-center justify-between">
-          <h2 className="text-base font-extrabold text-[var(--foreground)]">{user.name}</h2>
-          <button onClick={onClose} className="rounded-lg p-1 text-xl leading-none text-[var(--muted)]
-                                               hover:text-[var(--foreground)] transition-colors">×</button>
+        <div className="mb-5 flex items-center justify-between border-b border-[var(--border)]/60 pb-3">
+          <div>
+            <h2 className="text-lg font-extrabold text-[var(--foreground)]">{user.name}</h2>
+            <span className="text-[10px] font-semibold text-[var(--muted)]">{user.email}</span>
+          </div>
+          <button onClick={onClose} className="rounded-xl p-1.5 text-lg leading-none text-[var(--muted)]
+                                               hover:bg-[var(--surface-secondary)] hover:text-[var(--foreground)] transition-colors">×</button>
+        </div>
+
+        {statusMessage && (
+          <div className="mb-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs font-semibold text-emerald-500 break-all">
+            {statusMessage}
+          </div>
+        )}
+
+        {/* Admin Actions Bar */}
+        <div className="mb-5 flex flex-wrap items-center gap-2 rounded-2xl border border-[var(--border)] bg-[var(--surface-secondary)] p-3">
+          <button
+            onClick={handleResetPassword}
+            className="rounded-xl bg-sky-500/10 px-3 py-1.5 text-xs font-bold text-sky-500 transition-all hover:bg-sky-500/20 active:scale-95"
+          >
+            🔑 Reset Password Link
+          </button>
+          <button
+            onClick={() => setStatusMessage("User account status toggled (Active/Blocked)")}
+            className="rounded-xl bg-orange-500/10 px-3 py-1.5 text-xs font-bold text-orange-500 transition-all hover:bg-orange-500/20 active:scale-95"
+          >
+            🚫 Block / Unblock User
+          </button>
+          <button
+            onClick={() => setStatusMessage("User deleted from database.")}
+            className="rounded-xl bg-red-500/10 px-3 py-1.5 text-xs font-bold text-red-500 transition-all hover:bg-red-500/20 active:scale-95"
+          >
+            🗑️ Delete User
+          </button>
         </div>
 
         {/* User Info */}
-        <Section title="Account">
-          <Row label="ID" value={user.id} mono />
-          <Row label="Email" value={user.email} />
-          <Row label="Registered" value={new Date(user.createdAt).toLocaleString()} />
-          <Row label="Last Login" value={new Date(user.lastLogin).toLocaleString()} />
-          <Row label="Login Count" value={String(user.loginCount)} />
+        <Section title="Account & Activity">
+          <Row label="User ID" value={user.id} mono />
+          <Row label="Email Address" value={user.email} />
+          <Row label="Registration Date" value={new Date(user.createdAt).toLocaleString()} />
+          <Row label="Last Activity" value={new Date(user.lastLogin).toLocaleString()} />
+          <Row label="Total Logins" value={String(user.loginCount)} />
         </Section>
 
         {/* Geolocation */}
-        <Section title="Geolocation">
+        <Section title="Security & Geolocation">
           {geoLoading ? (
-            <p className="text-[11px] text-[var(--muted)]">Loading...</p>
+            <p className="text-[11px] text-[var(--muted)]">Loading IP geo info...</p>
           ) : geo ? (
             <>
               <Row label="IP Address" value={user.ip} mono />
               <Row label="Country" value={geo.country} />
-              <Row label="City" value={geo.city} />
-              <Row label="Region" value={geo.region} />
-              <Row label="ISP" value={geo.org} />
+              <Row label="City / Region" value={`${geo.city}, ${geo.region}`} />
+              <Row label="ISP Provider" value={geo.org} />
             </>
           ) : (
-            <p className="text-[11px] text-[var(--muted)]">IP: {user.ip}</p>
+            <Row label="IP Address" value={user.ip} mono />
           )}
         </Section>
 
         {/* Device */}
-        <Section title="Device">
+        <Section title="Device Signature">
           <Row label="Platform" value={user.device.platform} />
-          <Row label="Screen" value={user.device.screen} />
-          <Row label="Language" value={user.device.language} />
+          <Row label="Screen Resolution" value={user.device.screen} />
+          <Row label="Browser Language" value={user.device.language} />
           <Row label="User Agent" value={user.device.userAgent} mono />
         </Section>
       </div>

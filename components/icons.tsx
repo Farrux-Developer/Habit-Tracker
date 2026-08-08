@@ -146,3 +146,158 @@ export const Trash = ({ size = 24, className, style }: IconProps) => (
     <line x1="14" y1="11" x2="14" y2="17" />
   </svg>
 );
+
+export const Trash2 = Trash;
+
+export const ChevronLeft = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <path d="m15 18-6-6 6-6" />
+  </svg>
+);
+
+export const ChevronRight = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <path d="m9 18 6-6-6-6" />
+  </svg>
+);
+
+export const Check = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
+export const Minus = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg>
+);
+
+export const X = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <path d="M18 6 6 18M6 6l12 12" />
+  </svg>
+);
+
+export const Grid = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <rect width="7" height="7" x="3" y="3" rx="1" />
+    <rect width="7" height="7" x="14" y="3" rx="1" />
+    <rect width="7" height="7" x="14" y="14" rx="1" />
+    <rect width="7" height="7" x="3" y="14" rx="1" />
+  </svg>
+);
+
+export const CheckCircle2 = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="m9 12 2 2 4-4" />
+  </svg>
+);
+
+export const MinusCircle = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <circle cx="12" cy="12" r="10" />
+    <line x1="8" y1="12" x2="16" y2="12" />
+  </svg>
+);
+
+export const CircleDot = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <circle cx="12" cy="12" r="10" />
+    <circle cx="12" cy="12" r="1" />
+  </svg>
+);
+
+export const Award = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <circle cx="12" cy="8" r="6" />
+    <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+  </svg>
+);
+
+export const Edit2 = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+  </svg>
+);
+
+export const ShieldAlert = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <path d="M12 8v4M12 16h.01" />
+  </svg>
+);
+
+export const KeyRound = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <path d="M2 18v3c0 .6.4 1 1 1h4v-3h3v-3h2l1.4-1.4a6.5 6.5 0 1 0-4-4Z" />
+    <circle cx="16.5" cy="7.5" r=".5" fill="currentColor" />
+  </svg>
+);
+
+export const User = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+);
+
+export const Download = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+  </svg>
+);
+
+export const Laptop = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <rect width="18" height="12" x="3" y="4" rx="2" />
+    <line x1="2" y1="20" x2="22" y2="20" />
+  </svg>
+);
+
+export const RefreshCw = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+    <path d="M3 3v5h5" />
+    <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+    <path d="M16 16h5v5" />
+  </svg>
+);
+
+export const DollarSign = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <line x1="12" y1="2" x2="12" y2="22" />
+    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+  </svg>
+);
+
+export const Wallet = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+    <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+    <path d="M18 12a2 2 0 0 0 0 4h3v-4Z" />
+  </svg>
+);
+
+export const PieChart = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+    <path d="M22 12A10 10 0 0 0 12 2v10z" />
+  </svg>
+);
+
+export const ListTodo = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <rect width="6" height="6" x="3" y="5" rx="1" />
+    <path d="m3 17 2 2 4-4" />
+    <path d="M13 6h8M13 12h8M13 18h8" />
+  </svg>
+);
+
+export const CreditCard = ({ size = 24, className, style }: IconProps) => (
+  <svg {...icon(size, className)} style={style}>
+    <rect width="20" height="14" x="2" y="5" rx="2" />
+    <line x1="2" y1="10" x2="22" y2="10" />
+  </svg>
+);

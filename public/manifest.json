@@ -1,21 +1,16 @@
 {
-  "name": "Life is a Game — Habit Tracker",
-  "short_name": "Life is a Game",
-  "description": "Геймифицированный трекер привычек с тепловой картой",
+  "name": "Habit Tracker - Dashboard",
+  "short_name": "HabitTracker",
+  "description": "Clean, intuitive Habit Tracker SaaS Dashboard",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#060608",
+  "background_color": "#090d16",
   "theme_color": "#10b981",
   "icons": [
     {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
     }
   ]
 }

@@ -45,7 +45,7 @@ export default function LoginPage() {
 
           <div className="space-y-3">
             <input value={email} onChange={e => setEmail(e.target.value)}
-              type="email" placeholder="Email" autoComplete="email"
+              type="text" placeholder="Email or Username" autoComplete="username"
               className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)]
                          px-4 py-3 text-sm font-medium text-[var(--foreground)]
                          placeholder:text-[var(--muted)] outline-none focus:border-[var(--accent)]

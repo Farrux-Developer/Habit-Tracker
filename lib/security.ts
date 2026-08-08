@@ -17,6 +17,18 @@ export function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 100;
 }
 
+const DISPOSABLE_DOMAINS = new Set([
+  "tempmail.com", "mailinator.com", "10minutemail.com",
+  "guerrillamail.com", "dispostable.com", "trashmail.com",
+  "yopmail.com", "sharklasers.com", "tempmail.oops"
+]);
+
+/** Returns true if email uses a known disposable temporary provider */
+export function isDisposableEmail(email: string): boolean {
+  const domain = email.split("@")[1]?.toLowerCase();
+  return domain ? DISPOSABLE_DOMAINS.has(domain) : false;
+}
+
 /** Validate password strength */
 export function isValidPassword(pw: string): boolean {
   return pw.length >= 4 && pw.length <= 128 && !/<[^>]*>/.test(pw);

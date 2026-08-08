@@ -10,11 +10,17 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [error, setError] = useState("");
 
   const [loading, setLoading] = useState(false);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Anti-bot honeypot check
+    if (honeypot.trim()) {
+      setError("Bot detection triggered.");
+      return;
+    }
     setLoading(true);
     const err = await register(name.trim(), email.trim(), password);
     if (err) setError(err);
@@ -46,6 +52,16 @@ export default function RegisterPage() {
           )}
 
           <div className="space-y-3">
+            {/* Honeypot field for anti-bot */}
+            <input
+              type="text"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              className="hidden"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+
             <input value={name} onChange={e => setName(e.target.value)}
               type="text" placeholder="Name" autoComplete="name"
               className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface-secondary)]

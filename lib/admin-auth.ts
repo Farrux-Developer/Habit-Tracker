@@ -17,7 +17,7 @@ export interface AdminUser {
 // Auth
 // ============================================================
 export function adminLogin(name: string, password: string): boolean {
-  if (name === "admin" && password === "admin12345") {
+  if (name.trim() === "Farrux" && password === "Forever11smile") {
     sessionStorage.setItem(TOKEN_KEY, btoa(`admin:${Date.now()}`));
     return true;
   }
