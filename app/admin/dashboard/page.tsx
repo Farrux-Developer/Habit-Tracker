@@ -117,14 +117,14 @@ function RealUsersTab({ users, onRefresh }: { users: AuthUser[]; onRefresh: () =
         <table className="w-full text-left text-xs">
           <thead>
             <tr className="border-b border-[var(--border)] bg-[var(--surface-secondary)]">
-              {["Name","Email","Registered","Last Login","Logins"].map(h => (
+              {["Name","Email","IP","Device","Platform","Registered","Last Login","Logins"].map(h => (
                 <th key={h} className="px-4 py-3 font-semibold text-[var(--muted)] uppercase tracking-wider">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {users.length === 0 && (
-              <tr><td colSpan={5} className="px-4 py-8 text-center">
+              <tr><td colSpan={8} className="px-4 py-8 text-center">
                 <p className="text-[var(--muted)] text-xs mb-1">No registered users yet</p>
                 <p className="text-[10px] text-[var(--muted)]/60">
                   Users appear here after registering at <span className="text-[var(--accent)]">/auth/register</span>
@@ -137,6 +137,9 @@ function RealUsersTab({ users, onRefresh }: { users: AuthUser[]; onRefresh: () =
                            transition-colors cursor-pointer">
                 <td className="px-4 py-3 font-medium text-[var(--foreground)]">{u.name}</td>
                 <td className="px-4 py-3 text-[var(--muted)]">{u.email}</td>
+                <td className="px-4 py-3 font-mono text-[var(--muted)] text-[10px]">{u.ip || "—"}</td>
+                <td className="px-4 py-3 text-[var(--muted)] truncate max-w-[150px]" title={u.device?.userAgent || "—"}>{u.device?.userAgent || "—"}</td>
+                <td className="px-4 py-3 text-[var(--muted)]">{u.device?.platform || "—"}</td>
                 <td className="px-4 py-3 text-[var(--muted)]">{new Date(u.createdAt).toLocaleDateString()}</td>
                 <td className="px-4 py-3 text-[var(--muted)]">{new Date(u.lastLogin).toLocaleDateString()}</td>
                 <td className="px-4 py-3 tabular-nums font-mono text-[var(--foreground)]">{u.loginCount}</td>

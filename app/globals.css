@@ -1,56 +1,107 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Design Tokens
+   Design Tokens - Pastel Theme
    ============================================================ */
+@theme {
+  --color-mint-100: #dcfce7;
+  --color-mint-200: #bbf7d0;
+  --color-mint-300: #86efac;
+  --color-mint-400: #4ade80;
+  --color-mint-500: #22c55e;
+
+  --color-peach-100: #ffedd5;
+  --color-peach-200: #fed7aa;
+  --color-peach-300: #fdba74;
+  --color-peach-400: #fb923c;
+
+  --color-blue-100: #e0f2fe;
+  --color-blue-200: #bae6fd;
+  --color-blue-300: #7dd3fc;
+
+  --color-yellow-100: #fef9c3;
+  --color-yellow-200: #fef08a;
+  --color-yellow-300: #fde047;
+}
+
 :root {
-  --background: #f8fafb;
-  --foreground: #0f172a;
-  --surface: rgba(255,255,255,0.85);
-  --surface-secondary: #f1f5f9;
-  --surface-tertiary: #e2e8f0;
-  --border: rgba(15,23,42,0.06);
-  --border-strong: rgba(15,23,42,0.12);
-  --accent: #059669;
-  --accent-soft: rgba(5,150,105,0.08);
-  --accent-glow: rgba(5,150,105,0.2);
-  --accent-secondary: #d97706;
-  --accent-secondary-soft: rgba(217,119,6,0.08);
-  --muted: #64748b;
-  --muted-strong: #475569;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.03);
-  --shadow-md: 0 4px 24px rgba(0,0,0,0.04);
-  --shadow-lg: 0 8px 40px rgba(0,0,0,0.06);
-  --streak-warm: #fdba74;
-  --streak-fire: #f97316;
-  --streak-blaze: #dc2626;
-  --streak-legend: #a855f7;
-  --cell-empty: #e5e7eb;
+  --background: #fdfbf7;
+  --foreground: #2d3748;
+  --surface: #ffffff;
+  --surface-secondary: #f7fafc;
+  --surface-tertiary: #edf2f7;
+
+  --border: #e2e8f0;
+  --border-strong: #cbd5e0;
+
+  --accent: #4ade80; /* Pastel Mint Green */
+  --accent-soft: #dcfce7;
+  --accent-glow: rgba(74, 222, 128, 0.2);
+
+  --accent-secondary: #fbd38d; /* Pastel Yellow/Peach */
+  --accent-secondary-soft: #feebc8;
+
+  --muted: #718096;
+  --muted-strong: #4a5568;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.02);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.03);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.04);
+
+  --streak-warm: #fbd38d;
+  --streak-fire: #f6ad55;
+  --streak-blaze: #fc8181;
+  --streak-legend: #b794f4;
+
+  --cell-empty: #f7fafc;
+
+  /* Pastel Palette for Charts/Categories */
+  --pastel-mint: #a7f3d0;
+  --pastel-peach: #fed7aa;
+  --pastel-blue: #bae6fd;
+  --pastel-yellow: #fef08a;
+  --pastel-purple: #e9d5ff;
+  --pastel-pink: #fbcfe8;
 }
 
 .dark {
-  --background: #030508;
-  --foreground: #e2e8f0;
-  --surface: rgba(15,18,25,0.85);
-  --surface-secondary: #0f141d;
-  --surface-tertiary: #1a1f2e;
-  --border: rgba(255,255,255,0.05);
-  --border-strong: rgba(255,255,255,0.1);
-  --accent: #10b981;
-  --accent-soft: rgba(16,185,129,0.08);
-  --accent-glow: rgba(16,185,129,0.14);
-  --accent-secondary: #f59e0b;
-  --accent-secondary-soft: rgba(245,158,11,0.08);
-  --muted: #475569;
-  --muted-strong: #64748b;
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: none;
-  --streak-warm: #f59e0b;
-  --streak-fire: #f97316;
-  --streak-blaze: #ef4444;
-  --streak-legend: #c084fc;
-  --cell-empty: #1e293b;
+  --background: #1a202c;
+  --foreground: #f7fafc;
+  --surface: #2d3748;
+  --surface-secondary: #4a5568;
+  --surface-tertiary: #718096;
+
+  --border: #4a5568;
+  --border-strong: #718096;
+
+  --accent: #4ade80;
+  --accent-soft: rgba(74, 222, 128, 0.15);
+  --accent-glow: rgba(74, 222, 128, 0.25);
+
+  --accent-secondary: #fbd38d;
+  --accent-secondary-soft: rgba(251, 211, 141, 0.15);
+
+  --muted: #a0aec0;
+  --muted-strong: #cbd5e0;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,0.4);
+
+  --streak-warm: #fbd38d;
+  --streak-fire: #f6ad55;
+  --streak-blaze: #fc8181;
+  --streak-legend: #b794f4;
+
+  --cell-empty: #2d3748;
+
+  /* Pastel Palette (dark mode adjusted slightly) */
+  --pastel-mint: #6ee7b7;
+  --pastel-peach: #fdba74;
+  --pastel-blue: #7dd3fc;
+  --pastel-yellow: #fde047;
+  --pastel-purple: #d8b4fe;
+  --pastel-pink: #f9a8d4;
 }
 
 /* ============================================================
@@ -161,10 +212,10 @@ body::after {
 /* ============================================================
    Scrollbar
    ============================================================ */
-::-webkit-scrollbar { width:4px; height:4px; }
+::-webkit-scrollbar { width:8px; height:8px; }
 ::-webkit-scrollbar-track { background:transparent; }
-::-webkit-scrollbar-thumb { background:var(--muted); border-radius:2px; }
-::-webkit-scrollbar-thumb:hover { background:var(--muted-strong); }
+::-webkit-scrollbar-thumb { background:var(--border-strong); border-radius:4px; }
+::-webkit-scrollbar-thumb:hover { background:var(--muted); }
 
 /* Focus ring */
 *:focus-visible { outline:2px solid var(--accent); outline-offset:2px; border-radius:4px; }
