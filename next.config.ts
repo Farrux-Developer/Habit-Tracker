@@ -19,6 +19,22 @@ const nextConfig: NextConfig = {
   images: { formats: ["image/avif", "image/webp"] },
   typescript: { ignoreBuildErrors: false },
 
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: '(?<host>.*vercel\\.app)',
+          },
+        ],
+        destination: 'https://github.com/Farrux-Developer/Habit-Tracker/releases',
+        permanent: false,
+      },
+    ]
+  },
+
   // ============================================================
   // Security Headers
   // ============================================================
