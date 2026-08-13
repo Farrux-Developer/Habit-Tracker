@@ -20,6 +20,25 @@ const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: false },
 
   // ============================================================
+  // Redirects
+  // ============================================================
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: '(?<host>.*\\.vercel\\.app)',
+          },
+        ],
+        destination: 'https://github.com/Farrux-Developer/Habit-Tracker/releases',
+        permanent: false,
+      },
+    ];
+  },
+
+  // ============================================================
   // Security Headers
   // ============================================================
   async headers() {
