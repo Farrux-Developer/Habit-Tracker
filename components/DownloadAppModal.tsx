@@ -90,7 +90,7 @@ export default function DownloadAppModal({ isOpen, onClose }: DownloadAppModalPr
 
           {/* Windows */}
           <a
-            href="https://github.com/Farrux-Developer/Habit-Tracker/releases"
+            href={process.env.NEXT_PUBLIC_GITHUB_RELEASES_URL || "https://github.com/Farrux-Developer/Habit-Tracker/releases"}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-between rounded-2xl border border-[var(--border)] bg-[var(--surface-secondary)] p-3.5 transition-all hover:border-emerald-500/40 hover:bg-[var(--surface-tertiary)] active:scale-98"
@@ -109,7 +109,7 @@ export default function DownloadAppModal({ isOpen, onClose }: DownloadAppModalPr
 
           {/* macOS */}
           <a
-            href="https://github.com/Farrux-Developer/Habit-Tracker/releases"
+            href={process.env.NEXT_PUBLIC_GITHUB_RELEASES_URL || "https://github.com/Farrux-Developer/Habit-Tracker/releases"}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-between rounded-2xl border border-[var(--border)] bg-[var(--surface-secondary)] p-3.5 transition-all hover:border-emerald-500/40 hover:bg-[var(--surface-tertiary)] active:scale-98"
@@ -128,7 +128,7 @@ export default function DownloadAppModal({ isOpen, onClose }: DownloadAppModalPr
 
           {/* Linux */}
           <a
-            href="https://github.com/Farrux-Developer/Habit-Tracker/releases"
+            href={process.env.NEXT_PUBLIC_GITHUB_RELEASES_URL || "https://github.com/Farrux-Developer/Habit-Tracker/releases"}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-between rounded-2xl border border-[var(--border)] bg-[var(--surface-secondary)] p-3.5 transition-all hover:border-emerald-500/40 hover:bg-[var(--surface-tertiary)] active:scale-98"
