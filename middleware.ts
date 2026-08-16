@@ -5,7 +5,9 @@ export function middleware(request: NextRequest) {
   const host = request.headers.get('host') || '';
 
   if (host.includes('vercel.app')) {
-    return NextResponse.redirect('https://github.com/Farrux-Developer/Habit-Tracker/releases');
+    const owner = process.env.VERCEL_GIT_REPO_OWNER || 'Farrux-Developer';
+    const slug = process.env.VERCEL_GIT_REPO_SLUG || 'Habit-Tracker';
+    return NextResponse.redirect(`https://github.com/${owner}/${slug}/releases`);
   }
 
   return NextResponse.next();

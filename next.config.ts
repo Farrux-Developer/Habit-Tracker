@@ -23,6 +23,9 @@ const nextConfig: NextConfig = {
   // Redirects
   // ============================================================
   async redirects() {
+    const owner = process.env.VERCEL_GIT_REPO_OWNER || 'Farrux-Developer';
+    const slug = process.env.VERCEL_GIT_REPO_SLUG || 'Habit-Tracker';
+
     return [
       {
         source: '/:path*',
@@ -32,7 +35,7 @@ const nextConfig: NextConfig = {
             value: '(?<host>.*\\.vercel\\.app)',
           },
         ],
-        destination: 'https://github.com/Farrux-Developer/Habit-Tracker/releases',
+        destination: `https://github.com/${owner}/${slug}/releases`,
         permanent: false,
       },
     ];
