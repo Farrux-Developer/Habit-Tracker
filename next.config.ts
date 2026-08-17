@@ -19,12 +19,17 @@ const nextConfig: NextConfig = {
   images: { formats: ["image/avif", "image/webp"] },
   typescript: { ignoreBuildErrors: false },
 
+  env: {
+    NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER: process.env.VERCEL_GIT_REPO_OWNER || 'Farrux-Developer',
+    NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG: process.env.VERCEL_GIT_REPO_SLUG || 'Habit-Tracker',
+  },
+
   // ============================================================
   // Redirects
   // ============================================================
   async redirects() {
-    const owner = process.env.VERCEL_GIT_REPO_OWNER || 'Farrux-Developer';
-    const slug = process.env.VERCEL_GIT_REPO_SLUG || 'Habit-Tracker';
+    const repoOwner = process.env.VERCEL_GIT_REPO_OWNER || 'Farrux-Developer';
+    const repoSlug = process.env.VERCEL_GIT_REPO_SLUG || 'Habit-Tracker';
 
     return [
       {
@@ -35,7 +40,7 @@ const nextConfig: NextConfig = {
             value: '(?<host>.*\\.vercel\\.app)',
           },
         ],
-        destination: `https://github.com/${owner}/${slug}/releases`,
+        destination: `https://github.com/${repoOwner}/${repoSlug}/releases`,
         permanent: false,
       },
     ];
