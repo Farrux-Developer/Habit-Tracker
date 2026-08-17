@@ -24,9 +24,6 @@ const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: false },
   env: {
     NEXT_PUBLIC_GITHUB_RELEASES_URL: githubReleasesUrl,
-  },
-
-  env: {
     NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER: process.env.VERCEL_GIT_REPO_OWNER || 'Farrux-Developer',
     NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG: process.env.VERCEL_GIT_REPO_SLUG || 'Habit-Tracker',
   },
