@@ -29,28 +29,6 @@ const nextConfig: NextConfig = {
   },
 
   // ============================================================
-  // Redirects
-  // ============================================================
-  async redirects() {
-    const repoOwner = process.env.VERCEL_GIT_REPO_OWNER || 'Farrux-Developer';
-    const repoSlug = process.env.VERCEL_GIT_REPO_SLUG || 'Habit-Tracker';
-
-    return [
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: '(?<host>.*\\.vercel\\.app)',
-          },
-        ],
-        destination: `https://github.com/${repoOwner}/${repoSlug}/releases`,
-        permanent: false,
-      },
-    ];
-  },
-
-  // ============================================================
   // Security Headers
   // ============================================================
   async headers() {
