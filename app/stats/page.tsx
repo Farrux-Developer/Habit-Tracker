@@ -58,7 +58,7 @@ export default function StatsPage() {
   const habits = useHabits();
   const { currentStreak, maxStreak, totalContributions } = useStreaks();
   const { done, total, pct } = useTodayCompleted();
-  const { activeDays, totalDays } = useMonthlyProgress();
+  const { done: monthlyDone, total: monthlyTotal, pct: monthlyPct } = useMonthlyProgress();
 
   // Weekly activity — reactive via selector
   const weeklyActive = useHabitStore((s) => {
@@ -68,7 +68,9 @@ export default function StatsPage() {
     for (let i = 0; i < 7; i++) {
       const d = new Date(now);
       d.setDate(d.getDate() - i);
-      if ((map[formatDate(d)]?.length ?? 0) > 0) active++;
+      const statuses = map[formatDate(d)] || {};
+      const c = Object.values(statuses).filter(status => status === "done").length;
+      if (c > 0) active++;
     }
     return active;
   });
@@ -76,7 +78,6 @@ export default function StatsPage() {
   const todayStr = formatDate(new Date());
   const todayCount = useDateCompletionCount(todayStr);
   const weeklyPct = Math.round((weeklyActive / 7) * 100);
-  const monthlyPct = totalDays > 0 ? Math.round((activeDays / totalDays) * 100) : 0;
 
   return (
     <main className="mx-auto flex min-h-dvh max-w-[1400px] flex-col px-6 py-6 pb-20">
@@ -98,7 +99,7 @@ export default function StatsPage() {
                    label="Week" sub={`${weeklyActive}/7`} />
         <DonutRing pct={monthlyPct} size={100} stroke={8}
                    color="#a855f7" bg="var(--border)"
-                   label="Month" sub={`${activeDays}/${totalDays}`} />
+                   label="Month" sub={`${monthlyDone}/${monthlyTotal}`} />
       </section>
 
       {/* Big stat cards */}
@@ -132,17 +133,11 @@ export default function StatsPage() {
         <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-[var(--muted)]">
           Today — {todayStr}
         </h2>
-        {todayCount === 0 ? (
-          <p className="py-4 text-center text-xs text-[var(--muted)]">
-            No tasks completed yet today
-          </p>
-        ) : (
-          <div className="space-y-1.5">
-            {habits.filter((h) => h.is_active).map((h) => (
-              <TodayHabitRow key={h.id} habitId={h.id} title={h.title} date={todayStr} />
-            ))}
-          </div>
-        )}
+        <div className="space-y-1.5">
+          {habits.filter((h) => h.is_active).map((h) => (
+            <TodayHabitRow key={h.id} habitId={h.id} title={h.title} date={todayStr} />
+          ))}
+        </div>
       </section>
     </main>
   );
@@ -172,10 +167,12 @@ function StatCard({ icon, value, label, accent }: {
 }
 
 function TodayHabitRow({ habitId, title, date }: { habitId: string; title: string; date: string }) {
-  const isCompleted = useStoreSelector((s) => {
+  const status = useHabitStore((s) => {
     const yd = s.yearsData[s.currentYear];
-    return yd?.completedHabitsByDate[date]?.includes(habitId) ?? false;
+    const statuses = yd?.completedHabitsByDate[date] || {};
+    return statuses[habitId] || "none";
   });
+  const isCompleted = status === "done";
   return (
     <div className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
       isCompleted ? "bg-[var(--accent-soft)] text-[var(--accent)]" : "bg-[var(--surface-secondary)] text-[var(--muted)]"

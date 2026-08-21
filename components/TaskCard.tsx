@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useRef, useState } from "react";
-import { useIsHabitCompleted, useHabitStore } from "@/lib/store";
+import { useHabitStatus, useHabitStore } from "@/lib/store";
 import { Trash } from "@/components/icons";
 
 const TASK_COLORS = [
@@ -19,7 +19,8 @@ interface TaskCardProps {
 const TaskCard = React.memo(function TaskCard({
   habit, date, isReadOnly, colorIndex,
 }: TaskCardProps) {
-  const isCompleted = useIsHabitCompleted(habit.id, date);
+  const status = useHabitStatus(habit.id, date);
+  const isCompleted = status === "done";
   const toggleCompletion = useHabitStore((s) => s.toggleHabitCompletion);
   const updateHabit = useHabitStore((s) => s.updateHabit);
   const deleteHabit = useHabitStore((s) => s.deleteHabit);

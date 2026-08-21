@@ -88,8 +88,7 @@ function CompactStat({ icon, value, label, accent }: {
 export default React.memo(function StatsBar() {
   const { currentStreak, maxStreak } = useStreaks();
   const { done, total, pct } = useTodayCompleted();
-  const { activeDays, totalDays } = useMonthlyProgress();
-  const monthPct = totalDays > 0 ? Math.round((activeDays / totalDays) * 100) : 0;
+  const { done: monthlyDone, total: monthlyTotal, pct: monthPct } = useMonthlyProgress();
 
   return (
     <div className="grid grid-cols-[auto_1fr] gap-3 rounded-2xl p-4
@@ -118,7 +117,7 @@ export default React.memo(function StatsBar() {
       <div className="col-span-2 flex items-center gap-2.5 border-t border-[var(--border)] pt-3">
         <TrendingUp size={14} className="flex-shrink-0 text-[var(--muted)]" />
         <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--muted)]">
-          {activeDays}/{totalDays} days
+          {monthlyDone}/{monthlyTotal} tasks
         </span>
         <div className="flex-1 h-1.5 rounded-full overflow-hidden bg-[var(--border)]">
           <div className="h-full rounded-full transition-all duration-800 ease-[cubic-bezier(0.4,0,0.2,1)]"

@@ -22,11 +22,12 @@ export interface StreakResult {
   totalContributions: number;
 }
 
-type CompletionMap = Record<string, string[]>; // "YYYY-MM-DD" → habitIds
+export type HabitStatus = "done" | "skipped" | "none";
+type StatusMap = Record<string, Record<string, HabitStatus>>; // "YYYY-MM-DD" → { [habitId]: HabitStatus }
 
 interface YearData {
   habits: Habit[];
-  completedHabitsByDate: CompletionMap;
+  completedHabitsByDate: StatusMap;
 }
 
 interface HabitState {
@@ -69,17 +70,19 @@ export function dateRange(start: string, end: string): string[] {
   return dates;
 }
 
-function computeStreaks(map: CompletionMap): StreakResult {
+function computeStreaks(map: StatusMap): StreakResult {
   const today = formatDate(new Date());
   const yesterday = formatDate(new Date(Date.now() - 86400000));
 
   const activeDates = new Set(
     Object.entries(map)
-      .filter(([, ids]) => ids.length > 0)
+      .filter(([, statuses]) => Object.values(statuses).some(status => status === "done"))
       .map(([date]) => date),
   );
 
-  const total = Object.values(map).reduce((sum, ids) => sum + ids.length, 0);
+  const total = Object.values(map).reduce((sum, statuses) => {
+    return sum + Object.values(statuses).filter(status => status === "done").length;
+  }, 0);
 
   if (activeDates.size === 0) {
     return { currentStreak: 0, maxStreak: 0, totalContributions: 0 };
@@ -197,16 +200,17 @@ export const useHabitStore = create<HabitState>()(
           const endOfYear = `${year}-12-31`;
           const { data: completions } = await supabase
             .from("habit_completions")
-            .select("habit_id, completed_date")
+            .select("habit_id, completed_date, status")
             .eq("user_id", user.id)
             .gte("completed_date", startOfYear)
             .lte("completed_date", endOfYear);
 
-          const map: CompletionMap = {};
+          const map: StatusMap = {};
           if (completions) {
-            for (const row of completions as { habit_id: string; completed_date: string }[]) {
-              if (!map[row.completed_date]) map[row.completed_date] = [];
-              map[row.completed_date].push(row.habit_id);
+            for (const row of completions as { habit_id: string; completed_date: string; status?: HabitStatus }[]) {
+              if (!map[row.completed_date]) map[row.completed_date] = {};
+              // Fallback to "done" if status column doesn't exist yet to maintain backward compatibility
+              map[row.completed_date][row.habit_id] = row.status || "done";
             }
           }
 
@@ -305,11 +309,24 @@ export const useHabitStore = create<HabitState>()(
       toggleHabitCompletion: (habitId, date) => {
         const year = get().currentYear;
         const yd = ensureYear(get(), year);
-        const currentIds = yd.completedHabitsByDate[date] ?? [];
-        const isCompleted = currentIds.includes(habitId);
+        const currentStatuses = yd.completedHabitsByDate[date] || {};
+        const currentStatus = currentStatuses[habitId] || "none";
+
+        let nextStatus: HabitStatus;
+        if (currentStatus === "none") nextStatus = "done";
+        else if (currentStatus === "done") nextStatus = "skipped";
+        else nextStatus = "none";
 
         set((state) => {
           const yd2 = ensureYear(state, year);
+          const newStatuses = { ...yd2.completedHabitsByDate[date] };
+
+          if (nextStatus === "none") {
+              delete newStatuses[habitId];
+          } else {
+              newStatuses[habitId] = nextStatus;
+          }
+
           return {
             yearsData: {
               ...state.yearsData,
@@ -317,16 +334,14 @@ export const useHabitStore = create<HabitState>()(
                 ...yd2,
                 completedHabitsByDate: {
                   ...yd2.completedHabitsByDate,
-                  [date]: isCompleted
-                    ? currentIds.filter((id) => id !== habitId)
-                    : [...currentIds, habitId],
+                  [date]: newStatuses,
                 },
               },
             },
           };
         });
 
-        if (isCompleted) {
+        if (nextStatus === "none") {
           supabase.from("habit_completions").delete()
             .eq("habit_id", habitId).eq("completed_date", date)
             .then(({ error }) => {
@@ -335,10 +350,11 @@ export const useHabitStore = create<HabitState>()(
         } else {
           supabase.auth.getUser().then(({ data: authData }) => {
             if (!authData.user) return;
-            supabase.from("habit_completions").insert({
-              habit_id: habitId, user_id: authData.user.id, completed_date: date,
-            }).then(({ error }) => {
-              if (error) console.warn("[supabase] completion insert failed:", error.message);
+            // Use upsert to handle updates from "done" to "skipped" and inserts for new records
+            supabase.from("habit_completions").upsert({
+              habit_id: habitId, user_id: authData.user.id, completed_date: date, status: nextStatus
+            }, { onConflict: 'habit_id, completed_date' }).then(({ error }) => {
+              if (error) console.warn("[supabase] completion upsert failed:", error.message);
             });
           });
         }
@@ -367,10 +383,13 @@ const currentYearData = (s: HabitState): YearData =>
 export const useHabits = () => useHabitStore((s) => currentYearData(s).habits);
 
 export const useDateCompletionCount = (date: string): number =>
-  useHabitStore((s) => currentYearData(s).completedHabitsByDate[date]?.length ?? 0);
+  useHabitStore((s) => {
+      const statuses = currentYearData(s).completedHabitsByDate[date] || {};
+      return Object.values(statuses).filter(status => status === "done").length;
+  });
 
-export const useIsHabitCompleted = (habitId: string, date: string): boolean =>
-  useHabitStore((s) => currentYearData(s).completedHabitsByDate[date]?.includes(habitId) ?? false);
+export const useHabitStatus = (habitId: string, date: string): HabitStatus =>
+  useHabitStore((s) => currentYearData(s).completedHabitsByDate[date]?.[habitId] ?? "none");
 
 export const useStreaks = (): StreakResult => {
   const map = useHabitStore((s) => currentYearData(s).completedHabitsByDate);
@@ -384,34 +403,90 @@ export const useAllYears = (): number[] => {
   return useMemo(() => getAvailableYears(data), [data]);
 };
 
-export const useTodayCompleted = (): { done: number; total: number; pct: number } => {
-  const done = useHabitStore((s) => {
-    const yd = currentYearData(s);
+export const useTodayCompleted = (): { done: number; skipped: number; none: number; total: number; pct: number } => {
+  const yd = useHabitStore(s => currentYearData(s));
+
+  return useMemo(() => {
     const today = formatDate(new Date());
     const activeIds = new Set(yd.habits.filter((h) => h.is_active).map((h) => h.id));
-    return (yd.completedHabitsByDate[today] ?? []).filter((id) => activeIds.has(id)).length;
-  });
-  const total = useHabitStore((s) => currentYearData(s).habits.filter((h) => h.is_active).length);
-  return useMemo(() => ({
-    done, total,
-    pct: total > 0 ? Math.round((done / total) * 100) : 0,
-  }), [done, total]);
+    const statuses = yd.completedHabitsByDate[today] || {};
+
+    let done = 0;
+    let skipped = 0;
+
+    Object.entries(statuses).forEach(([id, status]) => {
+        if (activeIds.has(id)) {
+            if (status === "done") done++;
+            if (status === "skipped") skipped++;
+        }
+    });
+
+    const total = activeIds.size;
+    const none = Math.max(0, total - done - skipped);
+
+    return {
+      done, skipped, none, total,
+      pct: total > 0 ? Math.round((done / total) * 100) : 0,
+    };
+  }, [yd]);
 };
 
-export const useMonthlyProgress = (): { activeDays: number; totalDays: number; pct: number } => {
+export const useMonthlyProgress = (): { done: number; skipped: number; none: number; total: number; pct: number } => {
   const map = useHabitStore((s) => currentYearData(s).completedHabitsByDate);
+  const habitsCount = useHabitStore((s) => currentYearData(s).habits.filter(h => h.is_active).length);
+
   return useMemo(() => {
     const now = new Date();
     const year = now.getFullYear();
     const month = now.getMonth();
     const totalDays = new Date(year, month + 1, 0).getDate();
-    let activeDays = 0;
+
+    let done = 0;
+    let skipped = 0;
+    const total = totalDays * habitsCount;
+
     for (let d = 1; d <= totalDays; d++) {
-      if ((map[formatDate(new Date(year, month, d))]?.length ?? 0) > 0) activeDays++;
+        const statuses = map[formatDate(new Date(year, month, d))] || {};
+        Object.values(statuses).forEach(status => {
+            if (status === "done") done++;
+            if (status === "skipped") skipped++;
+        });
     }
-    return { activeDays, totalDays, pct: totalDays > 0 ? Math.round((activeDays / totalDays) * 100) : 0 };
-  }, [map]);
+
+    const none = Math.max(0, total - done - skipped);
+
+    return { done, skipped, none, total, pct: total > 0 ? Math.round((done / total) * 100) : 0 };
+  }, [map, habitsCount]);
 };
+
+export const useTopHabits = (limit = 3) => {
+    const { habits, completedHabitsByDate } = useHabitStore(s => currentYearData(s));
+
+    return useMemo(() => {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth();
+        const totalDays = new Date(year, month + 1, 0).getDate();
+
+        const activeHabits = habits.filter(h => h.is_active);
+        const stats = activeHabits.map(habit => {
+            let done = 0;
+            for (let d = 1; d <= totalDays; d++) {
+                const date = formatDate(new Date(year, month, d));
+                if (completedHabitsByDate[date]?.[habit.id] === "done") {
+                    done++;
+                }
+            }
+            return {
+                ...habit,
+                done,
+                pct: Math.round((done / totalDays) * 100)
+            };
+        });
+
+        return stats.sort((a, b) => b.pct - a.pct).slice(0, limit);
+    }, [habits, completedHabitsByDate]);
+}
 
 /** Max completions across last 180 days (for heatmap scale) */
 export const useMaxCompletions = (): number =>
@@ -422,7 +497,8 @@ export const useMaxCompletions = (): number =>
     for (let i = 0; i < 180; i++) {
       const d = new Date(now);
       d.setDate(d.getDate() - i);
-      const c = map[formatDate(d)]?.length ?? 0;
+      const statuses = map[formatDate(d)] || {};
+      const c = Object.values(statuses).filter(status => status === "done").length;
       if (c > max) max = c;
     }
     return max;

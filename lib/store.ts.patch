@@ -1,0 +1,16 @@
+<<<<<<< SEARCH
+type CompletionMap = Record<string, string[]>; // "YYYY-MM-DD" → habitIds
+
+interface YearData {
+  habits: Habit[];
+  completedHabitsByDate: CompletionMap;
+}
+=======
+export type HabitStatus = "done" | "skipped" | "none";
+type StatusMap = Record<string, Record<string, HabitStatus>>; // "YYYY-MM-DD" → { [habitId]: HabitStatus }
+
+interface YearData {
+  habits: Habit[];
+  completedHabitsByDate: StatusMap;
+}
+>>>>>>> REPLACE

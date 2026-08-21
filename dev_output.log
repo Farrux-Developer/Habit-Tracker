@@ -1,0 +1,173 @@
+
+> task@0.1.0 dev
+> next dev --turbo
+
+⚠ Port 3000 is in use by an unknown process, using available port 3002 instead.
+▲ Next.js 16.2.12 (Turbopack)
+- Local:         http://localhost:3002
+- Network:       http://192.168.0.2:3002
+- Environments: .env.local
+✓ Ready in 669ms
+
+ GET /auth/register 200 in 667ms (next.js: 349ms, application-code: 318ms)
+ GET / 200 in 65ms (next.js: 27ms, application-code: 37ms)
+[browser] The result of getSnapshot should be cached to avoid an infinite loop
+    at useTodayCompleted (lib/store.ts:407:29)
+    at HomePage (app/page.tsx:35:103)
+  405 |
+  406 | export const useTodayCompleted = (): { done: number; skipped: number; none: number; total...
+> 407 |   const { done, skipped } = useHabitStore((s) => {
+      |                             ^
+  408 |     const yd = currentYearData(s);
+  409 |     const today = formatDate(new Date());
+  410 |     const activeIds = new Set(yd.habits.filter((h) => h.is_active).map((h) => h.id)); (lib/store.ts:407:29)
+[browser] Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+    at Map.forEach (<anonymous>) (<anonymous>)
+[browser] Uncaught Error: Maximum update depth exceeded. This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate. React limits the number of nested updates to prevent infinite loops.
+    at Map.forEach (<anonymous>)
+    at TrendChart (components/charts/TrendChart.tsx:36:17)
+    at HomePage (app/page.tsx:119:27)
+  34 |         <div className="h-full w-full">
+  35 |             <ResponsiveContainer width="100%" height="100%">
+> 36 |                 <AreaChart data={data} margin={{ top: 5, right: 0, left: 0, bottom: 0 }}>
+     |                 ^
+  37 |                     <defs>
+  38 |                         <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
+  39 |                             <stop offset="5%" stopColor="var(--accent)" stopOpacity={0.3}/>
+ GET / 200 in 805ms (next.js: 6ms, application-code: 800ms)
+[browser] The result of getServerSnapshot should be cached to avoid an infinite loop
+    at useTodayCompleted (lib/store.ts:407:29)
+    at HomePage (app/page.tsx:35:103)
+  405 |
+  406 | export const useTodayCompleted = (): { done: number; skipped: number; none: number; total...
+> 407 |   const { done, skipped } = useHabitStore((s) => {
+      |                             ^
+  408 |     const yd = currentYearData(s);
+  409 |     const today = formatDate(new Date());
+  410 |     const activeIds = new Set(yd.habits.filter((h) => h.is_active).map((h) => h.id)); (lib/store.ts:407:29)
+[browser] Uncaught Error: Maximum update depth exceeded. This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate. React limits the number of nested updates to prevent infinite loops.
+    at Map.forEach (<anonymous>)
+    at TrendChart (components/charts/TrendChart.tsx:36:17)
+    at HomePage (app/page.tsx:119:27)
+  34 |         <div className="h-full w-full">
+  35 |             <ResponsiveContainer width="100%" height="100%">
+> 36 |                 <AreaChart data={data} margin={{ top: 5, right: 0, left: 0, bottom: 0 }}>
+     |                 ^
+  37 |                     <defs>
+  38 |                         <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
+  39 |                             <stop offset="5%" stopColor="var(--accent)" stopOpacity={0.3}/>
+ GET /auth/register 200 in 743ms (next.js: 100ms, application-code: 642ms)
+ GET / 200 in 94ms (next.js: 43ms, application-code: 50ms)
+[browser] The result of getSnapshot should be cached to avoid an infinite loop
+    at useTodayCompleted (lib/store.ts:407:29)
+    at HomePage (app/page.tsx:35:103)
+  405 |
+  406 | export const useTodayCompleted = (): { done: number; skipped: number; none: number; total...
+> 407 |   const { done, skipped } = useHabitStore((s) => {
+      |                             ^
+  408 |     const yd = currentYearData(s);
+  409 |     const today = formatDate(new Date());
+  410 |     const activeIds = new Set(yd.habits.filter((h) => h.is_active).map((h) => h.id)); (lib/store.ts:407:29)
+[browser] Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+    at Map.forEach (<anonymous>) (<anonymous>)
+[browser] Uncaught Error: Maximum update depth exceeded. This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate. React limits the number of nested updates to prevent infinite loops.
+    at Map.forEach (<anonymous>)
+    at TrendChart (components/charts/TrendChart.tsx:36:17)
+    at HomePage (app/page.tsx:127:27)
+  34 |         <div className="h-full w-full">
+  35 |             <ResponsiveContainer width="100%" height="100%">
+> 36 |                 <AreaChart data={data} margin={{ top: 5, right: 0, left: 0, bottom: 0 }}>
+     |                 ^
+  37 |                     <defs>
+  38 |                         <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
+  39 |                             <stop offset="5%" stopColor="var(--accent)" stopOpacity={0.3}/>
+ GET / 200 in 339ms (next.js: 61ms, application-code: 277ms)
+[browser] The result of getServerSnapshot should be cached to avoid an infinite loop
+    at useTodayCompleted (lib/store.ts:407:29)
+    at HomePage (app/page.tsx:35:103)
+  405 |
+  406 | export const useTodayCompleted = (): { done: number; skipped: number; none: number; total...
+> 407 |   const { done, skipped } = useHabitStore((s) => {
+      |                             ^
+  408 |     const yd = currentYearData(s);
+  409 |     const today = formatDate(new Date());
+  410 |     const activeIds = new Set(yd.habits.filter((h) => h.is_active).map((h) => h.id)); (lib/store.ts:407:29)
+[browser] Uncaught Error: Maximum update depth exceeded. This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate. React limits the number of nested updates to prevent infinite loops.
+    at Map.forEach (<anonymous>)
+    at TrendChart (components/charts/TrendChart.tsx:36:17)
+    at HomePage (app/page.tsx:127:27)
+  34 |         <div className="h-full w-full">
+  35 |             <ResponsiveContainer width="100%" height="100%">
+> 36 |                 <AreaChart data={data} margin={{ top: 5, right: 0, left: 0, bottom: 0 }}>
+     |                 ^
+  37 |                     <defs>
+  38 |                         <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
+  39 |                             <stop offset="5%" stopColor="var(--accent)" stopOpacity={0.3}/>
+ GET /auth/register 200 in 70ms (next.js: 6ms, application-code: 64ms)
+ GET / 200 in 38ms (next.js: 6ms, application-code: 32ms)
+[browser] The result of getSnapshot should be cached to avoid an infinite loop
+    at TrendChart (components/charts/TrendChart.tsx:9:39)
+   7 | export function TrendChart({ currentMonthIndex, currentYear }: { currentMonthIndex: number...
+   8 |     const map = useHabitStore((s) => s.yearsData[currentYear]?.completedHabitsByDate || {});
+>  9 |     const activeHabits = useHabitStore(s => (s.yearsData[currentYear]?.habits || []).filte...
+     |                                       ^
+  10 |     const activeIds = new Set(activeHabits.map(h => h.id));
+  11 |
+  12 |     const data = React.useMemo(() => { (components/charts/TrendChart.tsx:9:39)
+[browser] Uncaught Error: Maximum update depth exceeded. This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate. React limits the number of nested updates to prevent infinite loops.
+    at Map.forEach (<anonymous>)
+    at TrendChart (components/charts/TrendChart.tsx:36:17)
+    at HomePage (app/page.tsx:127:27)
+  34 |         <div className="h-full w-full">
+  35 |             <ResponsiveContainer width="100%" height="100%">
+> 36 |                 <AreaChart data={data} margin={{ top: 5, right: 0, left: 0, bottom: 0 }}>
+     |                 ^
+  37 |                     <defs>
+  38 |                         <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
+  39 |                             <stop offset="5%" stopColor="var(--accent)" stopOpacity={0.3}/>
+ GET / 200 in 69ms (next.js: 6ms, application-code: 63ms)
+[browser] The result of getSnapshot should be cached to avoid an infinite loop
+    at TrendChart (components/charts/TrendChart.tsx:9:39)
+   7 | export function TrendChart({ currentMonthIndex, currentYear }: { currentMonthIndex: number...
+   8 |     const map = useHabitStore((s) => s.yearsData[currentYear]?.completedHabitsByDate || {});
+>  9 |     const activeHabits = useHabitStore(s => (s.yearsData[currentYear]?.habits || []).filte...
+     |                                       ^
+  10 |     const activeIds = new Set(activeHabits.map(h => h.id));
+  11 |
+  12 |     const data = React.useMemo(() => { (components/charts/TrendChart.tsx:9:39)
+[browser] Uncaught Error: Maximum update depth exceeded. This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate. React limits the number of nested updates to prevent infinite loops.
+    at Map.forEach (<anonymous>)
+    at TrendChart (components/charts/TrendChart.tsx:36:17)
+    at HomePage (app/page.tsx:127:27)
+  34 |         <div className="h-full w-full">
+  35 |             <ResponsiveContainer width="100%" height="100%">
+> 36 |                 <AreaChart data={data} margin={{ top: 5, right: 0, left: 0, bottom: 0 }}>
+     |                 ^
+  37 |                     <defs>
+  38 |                         <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
+  39 |                             <stop offset="5%" stopColor="var(--accent)" stopOpacity={0.3}/>
+ GET / 200 in 81ms (next.js: 10ms, application-code: 71ms)
+[browser] Uncaught ReferenceError: map is not defined
+    at TrendChart (components/charts/TrendChart.tsx:33:41)
+    at HomePage (app/page.tsx:127:27)
+  31 |         }
+  32 |         return result;
+> 33 |     }, [currentYear, currentMonthIndex, map, activeIds]);
+     |                                         ^
+  34 |
+  35 |     return (
+  36 |         <div className="h-full w-full">
+ GET / 200 in 92ms (next.js: 6ms, application-code: 86ms)
+ GET /auth/login 200 in 393ms (next.js: 269ms, application-code: 124ms)
+ GET /auth/login 200 in 94ms (next.js: 5ms, application-code: 89ms)
+ GET / 200 in 196ms (next.js: 31ms, application-code: 165ms)
+ GET /auth/login 200 in 39ms (next.js: 4ms, application-code: 35ms)
+ GET / 200 in 70ms (next.js: 8ms, application-code: 63ms)
+ GET /auth/login 200 in 50ms (next.js: 4ms, application-code: 46ms)
+ GET / 200 in 69ms (next.js: 4ms, application-code: 65ms)
+ GET /auth/login 200 in 32ms (next.js: 3ms, application-code: 29ms)
+ GET / 200 in 82ms (next.js: 6ms, application-code: 76ms)
+ GET /auth/login 200 in 52ms (next.js: 3ms, application-code: 49ms)
+ GET / 200 in 61ms (next.js: 3ms, application-code: 58ms)
+ GET /auth/login 200 in 35ms (next.js: 3ms, application-code: 32ms)
+[?25h

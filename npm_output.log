@@ -2,7 +2,13 @@
 > task@0.1.0 start
 > next start
 
-▲ Next.js 16.2.12
-- Local:         http://localhost:3001
-- Network:       http://192.168.0.2:3001
-✓ Ready in 195ms
+⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use :::3000
+    at <unknown> (Error: listen EADDRINUSE: address already in use :::3000)
+    at new Promise (<anonymous>) {
+  code: 'EADDRINUSE',
+  errno: -98,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}

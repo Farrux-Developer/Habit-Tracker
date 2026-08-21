@@ -93,10 +93,12 @@ function DayDetail({ date, onClose }: { date: string; onClose: () => void }) {
 }
 
 function CompletionRow({ habit, date }: { habit: { id: string; title: string; type: string }; date: string }) {
-  const isCompleted = useHabitStore(s => {
+  const status = useHabitStore(s => {
     const yd = s.yearsData[s.currentYear];
-    return yd?.completedHabitsByDate[date]?.includes(habit.id) ?? false;
+    const statuses = yd?.completedHabitsByDate[date] || {};
+    return statuses[habit.id] || "none";
   });
+  const isCompleted = status === "done";
   return (
     <div className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
       isCompleted ? "bg-emerald-500/10 text-emerald-500" : "bg-[var(--surface-secondary)] text-[var(--muted)]"

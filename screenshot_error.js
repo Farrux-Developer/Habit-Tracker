@@ -4,6 +4,9 @@ const { chromium } = require('playwright');
   const context = await browser.newContext();
   const page = await context.newPage();
 
+  page.on('console', msg => console.log('PAGE LOG:', msg.text()));
+  page.on('pageerror', error => console.log('PAGE ERROR:', error.message));
+
   await page.goto('http://localhost:3001/auth/register');
 
   await page.fill('input[type="text"]', 'testuser');
@@ -15,6 +18,5 @@ const { chromium } = require('playwright');
   await page.goto('http://localhost:3001');
   await page.waitForTimeout(2000);
 
-  await page.screenshot({ path: 'screenshot_app.png', fullPage: true });
   await browser.close();
 })();

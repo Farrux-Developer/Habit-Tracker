@@ -1,0 +1,1 @@
+console.log("The error is 'The result of getServerSnapshot should be cached to avoid an infinite loop', which means returning a new object from the selector `{ done, skipped }` on every render causes zustand to think the state changed. We should use simple primitive selectors or a custom equality function.");
