@@ -28,6 +28,22 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG: process.env.VERCEL_GIT_REPO_SLUG || 'Habit-Tracker',
   },
 
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: ".*\\.vercel\\.app",
+          },
+        ],
+        destination: `${githubReleasesUrl}/latest`,
+        permanent: false,
+      },
+    ];
+  },
+
   // ============================================================
   // Security Headers
   // ============================================================
