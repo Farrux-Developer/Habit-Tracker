@@ -12,8 +12,8 @@ const csp = [
   "form-action 'self'",
 ].join("; ");
 
-const repoOwner = process.env.VERCEL_GIT_REPO_OWNER || 'Farrux-Developer';
-const repoSlug = process.env.VERCEL_GIT_REPO_SLUG || 'Habit-Tracker';
+const repoOwner = process.env.VERCEL_GIT_REPO_OWNER || process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER || 'Farrux-Developer';
+const repoSlug = process.env.VERCEL_GIT_REPO_SLUG || process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG || 'Habit-Tracker';
 const githubReleasesUrl = `https://github.com/${repoOwner}/${repoSlug}/releases`;
 
 const nextConfig: NextConfig = {
@@ -24,8 +24,24 @@ const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: false },
   env: {
     NEXT_PUBLIC_GITHUB_RELEASES_URL: githubReleasesUrl,
-    NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER: process.env.VERCEL_GIT_REPO_OWNER || 'Farrux-Developer',
-    NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG: process.env.VERCEL_GIT_REPO_SLUG || 'Habit-Tracker',
+    NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER: repoOwner,
+    NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG: repoSlug,
+  },
+
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: '.*\\.vercel\\.app',
+          },
+        ],
+        destination: `${githubReleasesUrl}/latest`,
+        permanent: false,
+      },
+    ];
   },
 
   // ============================================================
