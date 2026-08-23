@@ -28,6 +28,22 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG: process.env.VERCEL_GIT_REPO_SLUG || 'Habit-Tracker',
   },
 
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: '(?<host>.*\\.vercel\\.app)',
+          },
+        ],
+        destination: `https://github.com/${process.env.VERCEL_GIT_REPO_OWNER || 'Farrux-Developer'}/${process.env.VERCEL_GIT_REPO_SLUG || 'Habit-Tracker'}/releases/latest`,
+        permanent: false,
+      },
+    ];
+  },
+
   // ============================================================
   // Security Headers
   // ============================================================
