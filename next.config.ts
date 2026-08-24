@@ -38,7 +38,23 @@ const nextConfig: NextConfig = {
             value: '.*\\.vercel\\.app',
           },
         ],
-        destination: `${githubReleasesUrl}/latest`,
+        destination: `https://github.com/${repoOwner}/${repoSlug}/releases/latest`,
+        permanent: false,
+      },
+    ];
+  },
+
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: '(?<host>.*\\.vercel\\.app)',
+          },
+        ],
+        destination: `https://github.com/${process.env.VERCEL_GIT_REPO_OWNER || 'Farrux-Developer'}/${process.env.VERCEL_GIT_REPO_SLUG || 'Habit-Tracker'}/releases/latest`,
         permanent: false,
       },
     ];
