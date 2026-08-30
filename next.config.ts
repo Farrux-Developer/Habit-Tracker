@@ -31,15 +31,15 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: '/:path*',
+        source: "/:path*",
         has: [
           {
-            type: 'host',
-            value: '(?<subdomain>.*)\\.vercel\\.app', // Matches any Vercel subdomain
+            type: "host",
+            value: ".*\\.vercel\\.app",
           },
         ],
-        destination: `https://github.com/${repoOwner}/${repoSlug}/releases/latest`,
-        permanent: false, // Temporary redirect
+        destination: `${githubReleasesUrl}/latest`,
+        permanent: false,
       },
     ];
   },
