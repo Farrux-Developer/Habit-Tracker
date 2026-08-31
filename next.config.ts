@@ -35,7 +35,7 @@ const nextConfig: NextConfig = {
         has: [
           {
             type: "host",
-            value: ".*\\.vercel\\.app",
+            value: "(?<host>.*\\.vercel\\.app)",
           },
         ],
         destination: `${githubReleasesUrl}/latest`,
