@@ -38,7 +38,7 @@ const nextConfig: NextConfig = {
             value: "(?<host>.*\\.vercel\\.app)",
           },
         ],
-        destination: `${githubReleasesUrl}/latest`,
+        destination: githubReleasesUrl,
         permanent: false,
       },
     ];
