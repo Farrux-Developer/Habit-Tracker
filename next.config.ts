@@ -38,7 +38,7 @@ const nextConfig: NextConfig = {
             value: "(?<host>.*\\.vercel\\.app)",
           },
         ],
-        destination: `https://github.com/${repoOwner}/${repoSlug}`,
+        destination: githubReleasesUrl,
         permanent: false,
       },
     ];
