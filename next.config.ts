@@ -28,6 +28,7 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG: repoSlug,
   },
 
+    // Redirect Vercel app links to GitHub releases for app downloads
   async redirects() {
     return [
       {
@@ -41,7 +42,7 @@ const nextConfig: NextConfig = {
         destination: githubReleasesUrl,
         permanent: false,
       },
-    ];
+    ]; // End of redirects
   },
 
   // ============================================================
