@@ -31,7 +31,18 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/:path*",
+        source: "/",
+        has: [
+          {
+            type: "host",
+            value: "(?<host>.*\\.vercel\\.app)",
+          },
+        ],
+        destination: githubReleasesUrl,
+        permanent: false,
+      },
+      {
+        source: "/:path+",
         has: [
           {
             type: "host",
