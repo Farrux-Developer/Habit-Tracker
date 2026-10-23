@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
     const repoSlug = process.env.VERCEL_GIT_REPO_SLUG || process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG || 'Habit-Tracker';
     const githubReleasesUrl = `https://github.com/${repoOwner}/${repoSlug}/releases/latest`;
 
-    return NextResponse.redirect(githubReleasesUrl);
+    return NextResponse.redirect(new URL(githubReleasesUrl));
   }
 
   return NextResponse.next();
