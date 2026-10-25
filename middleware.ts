@@ -5,9 +5,9 @@ export function middleware(request: NextRequest) {
   if (request.nextUrl.hostname.endsWith('.vercel.app')) {
     const repoOwner = process.env.VERCEL_GIT_REPO_OWNER || process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER || 'Farrux-Developer';
     const repoSlug = process.env.VERCEL_GIT_REPO_SLUG || process.env.NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG || 'Habit-Tracker';
-    const githubReleasesUrl = `https://github.com/${repoOwner}/${repoSlug}/releases/latest`;
+    const githubReleasesUrl = `https://github.com/${repoOwner}/${repoSlug}/releases`;
 
-    return NextResponse.redirect(githubReleasesUrl);
+    return NextResponse.redirect(new URL(githubReleasesUrl));
   }
 
   return NextResponse.next();
